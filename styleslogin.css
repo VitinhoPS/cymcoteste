@@ -1,0 +1,70 @@
+/* styles.css */
+
+body {
+    background-color: #000; /* Preto */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: #fff; /* Branco */
+    padding: 30px 30px 40px; /* Ajuste de padding */
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 300px;
+    text-align: center;
+}
+
+.logo {
+    background-image: url('Asssets/cymco-logo-pg.png'); /* Coloque o caminho da sua logo aqui */
+    background-size: cover;
+    width: 120px; /* Aumentado */
+    height: 120px; /* Aumentado */
+    margin: 0 auto 10px;
+    border-radius: 90%;
+    border: 0px solid #ff9100;
+}
+
+h2 {
+    color: #ff7f00; /* Laranja */
+    margin-bottom: 20px;
+}
+
+label {
+    color: #333;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #ff7f00; /* Laranja */
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #e06b00;
+}
+
+#message {
+    margin-top: 10px;
+    color: red;
+}

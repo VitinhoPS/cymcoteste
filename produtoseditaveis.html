@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos Editáveis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isAuthenticated = localStorage.getItem('authenticated');
+            if (!isAuthenticated) {
+                window.location.href = 'login.html'; // Redireciona para a página de login
+            }
+        });
+    </script>
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>CODPRODUTO</th>
+                <th>PRODUTO</th>
+                <th>Consumo Mensal</th>
+                <th>Consumo em Cxs</th>
+                <th>Consumo Quinzenal</th>
+                <th>Consumo Semanal</th>
+                <th>Consumo Diário</th>
+                <th>Dias de Venda</th>
+                <th>Contagem</th>
+                <th>Qtde. Entrada</th>
+                <th>Qtde. Saída</th>
+                <th>Saldo Atual</th>
+                <th>CXs</th>
+                <th>PCTs</th>
+                <th>Reposição</th>
+                <th>CXs</th>
+                <th>Peso Real</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" value="613"></td>
+                <td><input type="text" value="CHIPA"></td>
+                <td><input type="text" value="1000"></td>
+                <td><input type="text" value="86"></td>
+                <td><input type="text" value="173"></td>
+                <td><input type="text" value="86"></td>
+                <td><input type="text" value="20"></td>
+                <td><input type="text" value="17"></td>
+                <td><input type="text" value="295"></td>
+                <td><input type="text" value="1"></td>
+                <td><input type="text" value="16"></td>
+                <td><input type="text" value="279"></td>
+                <td><input type="text" value="69"></td>
+                <td><input type="text" value="3"></td>
+                <td><input type="text" value="64"></td>
+                <td><input type="text" value="16"></td>
+                <td><input type="text" value="64"></td>
+                <td><button onclick="removeRow(this)">Remover</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="addRow()">Adicionar Linha</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', loadTable);
+
+        function loadTable() {
+            const savedData = JSON.parse(localStorage.getItem('productData')) || [];
+            const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+            table.innerHTML = '';
+            savedData.forEach(rowData => {
+                const newRow = table.insertRow();
+                rowData.forEach(cellData => {
+                    const newCell = newRow.insertCell();
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = cellData;
+                    newCell.appendChild(input);
+                });
+                const actionsCell = newRow.insertCell();
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remover';
+                removeButton.onclick = function() { removeRow(removeButton); };
+                actionsCell.appendChild(removeButton);
+            });
+        }
+
+        function addRow() {
+            const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            for (let i = 0; i < 17; i++) {
+                const newCell = newRow.insertCell();
+                const input = document.createElement('input');
+                input.type = 'text';
+                newCell.appendChild(input);
+            }
+            const actionsCell = newRow.insertCell();
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remover';
+            removeButton.onclick = function() { removeRow(removeButton); };
+            actionsCell.appendChild(removeButton);
+            saveTable();
+        }
+
+        function removeRow(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            saveTable();
+        }
+
+        function saveTable() {
+            const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+            const data = [];
+            for (let i = 0; i < table.rows.length; i++) {
+                const row = table.rows[i];
+                const rowData = [];
+                for (let j = 0; j < row.cells.length - 1; j++) {
+                    rowData.push(row.cells[j].querySelector('input').value);
+                }
+                data.push(rowData);
+            }
+            localStorage.setItem('productData', JSON.stringify(data));
+        }
+
+        document.getElementById('productTable').addEventListener('input', saveTable);
+    </script>
+</body>
+</html>

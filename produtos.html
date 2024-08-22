@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isAuthenticated = localStorage.getItem('authenticated');
+            if (!isAuthenticated) {
+                window.location.href = 'login.html'; // Redireciona para a página de login
+            }
+        });
+    </script>
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>CODPRODUTO</th>
+                <th>PRODUTO</th>
+                <th>Dias de Venda</th>
+                <th>Saldo Atual</th>
+                <th>CXs</th>
+                <th>PCTs</th>
+                <th>Reposição</th>
+                <th>CXs</th>
+                <th>Peso Real</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Linhas serão adicionadas dinamicamente -->
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedData = JSON.parse(localStorage.getItem('productData')) || [];
+            const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+            savedData.forEach(rowData => {
+                const newRow = table.insertRow();
+                const selectedColumns = [0, 1, 7, 11, 12, 13, 14, 15, 16]; // Índices das colunas desejadas
+                selectedColumns.forEach(columnIndex => {
+                    const newCell = newRow.insertCell();
+                    newCell.textContent = rowData[columnIndex];
+                });
+            });
+        });
+    </script>
+</body>
+</html>
